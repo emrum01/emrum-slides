@@ -1,0 +1,136 @@
+---
+description: mdファイルの作成・編集を行うときに必ず参照するルール
+globs: *.md
+alwaysApply: false
+---
+# Markdown編集ルール
+
+## Marpの使用について
+
+- すべてのMarkdownファイルでMarpを使用します
+- Marpを有効にするために、各Markdownファイルの先頭に以下のフロントマターを追加してください：
+
+```markdown
+---
+marp: true
+style: div.mermaid { all: unset; }
+---
+```
+
+## Mermaidの使用について
+
+Mermaidダイアグラムを使用する場合は、以下の形式で記述してください：
+
+```markdown
+<div class="mermaid">
+graph TD
+    A[開始] --> B[処理1]
+    B --> C[処理2]
+    C --> D[終了]
+</div>
+
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.0.0/dist/mermaid.esm.min.mjs';
+mermaid.initialize({ startOnLoad: true });
+window.addEventListener('vscode.markdown.updateContent', function() { mermaid.init() });
+</script>
+```
+
+## スライドの区切り
+
+スライドの区切りには `---` を使用します：
+
+```markdown
+# スライド1
+
+内容
+
+---
+
+# スライド2
+
+内容
+```
+
+## テーマの使用
+
+デフォルトテーマを変更する場合は、フロントマターに `theme` ディレクティブを追加します：
+
+```markdown
+---
+marp: true
+theme: default
+style: div.mermaid { all: unset; }
+---
+```
+
+利用可能なテーマ：default, gaia, uncover
+
+## 画像の配置
+
+画像の配置を制御するには、以下の構文を使用します：
+
+```markdown
+![width:500px](mdc:画像パス)
+![height:300px](mdc:画像パス)
+![width:500px height:300px](mdc:画像パス)
+![center](mdc:画像パス)
+![bg](mdc:背景画像パス)
+```
+
+## ページ番号の追加
+
+ページ番号を追加するには、フロントマターに `paginate` ディレクティブを追加します：
+
+```markdown
+---
+marp: true
+paginate: true
+---
+```
+
+特定のページからページ番号を開始するには：
+
+```markdown
+---
+marp: true
+paginate: 3
+---
+```
+
+## スピーカーノート
+
+スピーカーノートを追加するには、スライドの後に `<!-- -->` コメントを使用します：
+
+```markdown
+# スライド
+
+内容
+
+<!-- 
+ここにスピーカーノートを記述します。
+これはプレゼンテーション時のみ表示されます。
+-->
+```
+
+## カラースキーマ
+
+スライドの色を変更するには：
+
+```markdown
+---
+marp: true
+color: #fff
+backgroundColor: #000
+---
+```
+
+または、個別のスライドに対して：
+
+```markdown
+<!-- color: white -->
+<!-- backgroundColor: black -->
+
+# 黒背景に白文字のスライド
+```
+```
